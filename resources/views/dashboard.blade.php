@@ -5,7 +5,5 @@
         </h2>
     </x-slot>
 
-    <x-slot name="content">
         {{ __("You're logged in!") }}
-    </x-slot>
 </x-app-layout>
