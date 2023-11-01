@@ -67,7 +67,7 @@
             </div>
         </div>
         {{-- End Button dropdown --}}
-        <form class="" x-show="option == 'users_anonymous' ">
+        <form class="" wire:submit='save' x-show="option == 'users_anonymous' ">
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-1/2 md:mr-2">
                     <x-input-label for="name" :value="__('Name')" />
@@ -83,10 +83,13 @@
                 </div>
             </div>
             <div class="w-full flex justify-end mt-2">
-                <button type="button"
+                {{-- <button type="submit"
                     class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                     {{ __('Save') }}
-                </button>
+                </button> --}}
+
+                <x-button-load text="{{ __('Save') }}" type="submit" :loading="$loading"></x-button-load>
+
             </div>
         </form>
 
