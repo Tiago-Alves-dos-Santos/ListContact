@@ -89,6 +89,11 @@ new class extends Component
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1 capitalize">
+            <x-responsive-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')" wire:navigate>
+                {{ __('contacts') }}
+            </x-responsive-nav-link>
+        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
