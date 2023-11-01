@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
-    //livewire pages
-    Route::get('/contacts', Contacts::class)->name('contacts');
-    Route::get('/contacts/new', NewContact::class)->name('contacts.new');
+    //blade pages
+    Route::view('/contacts', 'contact.contacts')->name('contacts');
+    Route::view('/contacts/new', 'contact.new-contact')->name('contacts.new');
 });
