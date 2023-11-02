@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    <div x-data="{ option: 'users_anonymous' }">
+    <div x-data="optionCreate">
         {{-- Button dropdown --}}
         <div class="flex justify-center">
             <div>
@@ -67,7 +67,7 @@
             </div>
         </div>
         {{-- End Button dropdown --}}
-        <form class="" wire:submit='save' x-show="option == 'users_anonymous' ">
+        <form class="" wire:submit="save" x-show="option == 'users_anonymous' ">
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-1/2 md:mr-2">
                     <x-input-label for="name" :value="__('Name')" />
@@ -77,13 +77,16 @@
                 </div>
                 <div class="w-full md:w-1/2">
                     <x-input-label class="first-uppercase" for="number" :value="__('number')" />
-                    <x-text-input id="number" wire:model='cellphone' class="block mt-1 w-full" type="text" name="number"
-                        autofocus autocomplete="cellphone" />
+                    <x-text-input id="number" wire:model='cellphone' class="block mt-1 w-full" type="text"
+                        name="number" autofocus autocomplete="cellphone" x-mask="(99) 9 9999-9999" />
                     <x-input-error :messages="$errors->get('cellphone')" class="mt-2" />
                 </div>
             </div>
             <div class="w-full flex justify-end mt-2">
-                <x-button-load text="{{ __('Save') }}" type="submit" :loading="$loading"></x-button-load>
+                <x-primary-button type="submit">
+                    <span wire:loading.remove>{{ __('Save') }}</span>
+                    <x-load wire:loading></x-load>
+                </x-primary-button>
             </div>
         </form>
 
@@ -93,4 +96,18 @@
         </div>
     </div>
 
+
 </div>
+@push('script')
+    <script type="module">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('optionCreate', () => ({
+                option: 'users_anonymous',
+            }))
+
+        })
+        document.addEventListener('livewire:initialized', () => {
+
+        });
+    </script>
+@endpush

@@ -6,18 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ButtonLoad extends Component
+class load extends Component
 {
-
-
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public string $text,
-    )
+    public function __construct()
     {
-
+        //
     }
 
     /**
@@ -25,6 +21,6 @@ class ButtonLoad extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.button-load');
+        return view('components.load');
     }
 }
