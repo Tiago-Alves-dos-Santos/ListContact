@@ -1,23 +1,39 @@
 <?php
+
 namespace App\Traits;
+
+use App\Enum\TypeAlert;
+
 trait Toast
 {
-    private string $type ='';
-    public bool $show = false;
+    private string $type = '';
     public array $toast = [
         'message' => '',
-        'type'=>''
+        'type' => ''
     ];
-    public function setType(string $type) : void {
-
-    }
-    public function messageInfo($message):void
+    private function loadToast($message, $type)
     {
-        $this->type = 'info';
-        $this->toast = [
-            'message' => $message,
-            'type' => $this->type,
-        ];
+        $this->type = $type;
+        $this->toast['message'] = $message;
+        $this->toast['type'] = $this->type;
         $this->show = true;
+    }
+    public function getType(): TypeAlert
+    {
+        $reflectionClass = new \ReflectionClass(TypeAlert::class);
+        $options = $reflectionClass->getConstants();
+        return $options[strtoupper($this->type)];
+    }
+    public function messageInfo($message): void
+    {
+        $this->loadToast($message, TypeAlert::INFO->value);
+    }
+    public function messageWarning($message): void
+    {
+        $this->loadToast($message, TypeAlert::WARNING->value);
+    }
+    public function messageDanger($message): void
+    {
+        $this->loadToast($message, TypeAlert::DANGER->value);
     }
 }

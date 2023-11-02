@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Pages;
 
-use App\Models\User;
 use Livewire\Component;
 use App\Models\Contacts;
 use App\Traits\Toast;
@@ -24,18 +23,25 @@ class NewContact extends Component
             'name' => __('Name'),
             'cellphone' => __('number')
         ]);
-        $this->loading = true;
+        try{
 
-        $contact = new Contacts();
-        $contact->name = $this->name;
-        $contact->cellphone = $this->cellphone;
-        $user = request()->user();
-        $user->contacts()->save($contact);
+            $this->loading = true;
 
-        $this->reset(['name','cellphone']);
-        $this->loading = false;
-        $this->messageInfo('Cadastrado com sucesso');
-        $this->dispatch('contatc-created');
+            $contact = new Contacts();
+            $contact->name = $this->name;
+            $contact->cellphone = $this->cellphone;
+            $user = request()->user();
+            $user->contacts()->save($contact);
+
+            $this->reset(['name','cellphone']);
+            $this->loading = false;
+            $this->messageInfo('Cadastrado com sucesso');
+            $this->dispatch('contatc-created');
+        }catch(\Exception $e){
+            $this->messageInfo($e->getMessage());
+            $this->loading = false;
+            $this->dispatch('contatc-created');
+        }
     }
 
     public function render()

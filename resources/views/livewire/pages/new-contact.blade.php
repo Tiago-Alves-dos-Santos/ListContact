@@ -67,6 +67,10 @@
             </div>
         </div>
         {{-- End Button dropdown --}}
+        <div class="w-full flex justify-end mt-2">
+            <x-toast :message="$this->toast['message']" :type="$this->toast['type']" x-show="show_toast"
+                x-on:close-toast="show_toast = false"></x-toast>
+        </div>
         <form class="" wire:submit="save" x-show="option == 'users_anonymous' ">
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-1/2 md:mr-2">
@@ -94,8 +98,6 @@
         <div x-show="option == 'users_system'">
             Table
         </div>
-
-        <x-toast :message="$this->toast['message']" :type="$this->toast['type']" x-show="show_toast" x-on:close-toast="show_toast = false"></x-toast>
     </div>
 
 
@@ -114,12 +116,6 @@
                     }, 3000);
                 }
             }));
-        });
-        document.addEventListener('livewire:initialized', () => {
-            @this.on('contatc-created', (event) => {
-
-            });
-
         });
     </script>
 @endpush
