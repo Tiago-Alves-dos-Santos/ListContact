@@ -32,6 +32,7 @@ class NewContact extends Component
 
         $this->reset(['name','cellphone']);
         $this->loading = false;
+        $this->dispatch('contatc-created');
     }
 
     public function render()

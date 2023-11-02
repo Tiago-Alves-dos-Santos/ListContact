@@ -72,10 +72,10 @@
                 <div class="w-full md:w-1/2 md:mr-2">
                     <x-input-label for="name" :value="__('Name')" />
                     <x-text-input wire:model='name' id="name" class="block mt-1 w-full" type="text"
-                        name="name" autofocus autocomplete="username" />
+                        name="name" autofocus x-ref="name" autocomplete="username" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/2" x-on:contatc-created.window="$refs.name.focus();">
                     <x-input-label class="first-uppercase" for="number" :value="__('number')" />
                     <x-text-input id="number" wire:model='cellphone' class="block mt-1 w-full" type="text"
                         name="number" autofocus autocomplete="cellphone" x-mask="(99) 9 9999-9999" />
@@ -107,6 +107,9 @@
 
         })
         document.addEventListener('livewire:initialized', () => {
+            @this.on('contatc-created', (event) => {
+
+            });
 
         });
     </script>
