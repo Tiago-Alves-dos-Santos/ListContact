@@ -131,5 +131,14 @@
   "of": "de",
   "results": "resultados",
   "to": "até",
-  "new contact": "novo contato"
+  "contacts": "contatos",
+  "new":"novo",
+  "new contact": "novo contato",
+  "create by": "cadastrar por",
+  "anonymous number": "numéro anônimo",
+  "register contact with only number and name":"cadastre contato apenas com número e nome",
+  "users of system": "usuários do sistema",
+  "create contact from a user already existing in the system":"criar contato a partir de usuario já existente no sistema",
+  "number":"número",
+  "cellphone number":"número do telefone"
 }

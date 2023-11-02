@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Livewire\Pages\Contacts;
+use App\Livewire\Pages\NewContact;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -28,4 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
+    //livewire pages
+    Route::get('/contacts', Contacts::class)->name('contacts');
+    Route::get('/contacts/new', NewContact::class)->name('contacts.new');
 });
