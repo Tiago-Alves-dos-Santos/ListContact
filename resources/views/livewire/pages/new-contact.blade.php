@@ -71,25 +71,19 @@
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-1/2 md:mr-2">
                     <x-input-label for="name" :value="__('Name')" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text"
-                        name="name" required autofocus autocomplete="username" />
+                    <x-text-input wire:model='name' id="name" class="block mt-1 w-full" type="text"
+                        name="name" autofocus autocomplete="username" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 <div class="w-full md:w-1/2">
                     <x-input-label class="first-uppercase" for="number" :value="__('number')" />
-                    <x-text-input id="number" class="block mt-1 w-full" type="text" name="number" required
-                        autofocus autocomplete="username" />
-                    <x-input-error :messages="$errors->get('number')" class="mt-2" />
+                    <x-text-input id="number" wire:model='cellphone' class="block mt-1 w-full" type="text" name="number"
+                        autofocus autocomplete="cellphone" />
+                    <x-input-error :messages="$errors->get('cellphone')" class="mt-2" />
                 </div>
             </div>
             <div class="w-full flex justify-end mt-2">
-                {{-- <button type="submit"
-                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                    {{ __('Save') }}
-                </button> --}}
-
                 <x-button-load text="{{ __('Save') }}" type="submit" :loading="$loading"></x-button-load>
-
             </div>
         </form>
 
