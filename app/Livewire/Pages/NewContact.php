@@ -5,10 +5,12 @@ namespace App\Livewire\Pages;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Contacts;
+use App\Traits\Toast;
 use Livewire\Attributes\On;
 
 class NewContact extends Component
 {
+    use Toast;
     public bool $loading = false;
     public string $name = '';
     public string $cellphone = '';
@@ -17,7 +19,7 @@ class NewContact extends Component
     {
         $this->validate([
             'name' => ['required','min:5'],
-            'cellphone' => ['required', 'min:16','max:16'],
+            'cellphone' => ['required', 'min:16','max:17'],
         ],[],[
             'name' => __('Name'),
             'cellphone' => __('number')
@@ -32,6 +34,7 @@ class NewContact extends Component
 
         $this->reset(['name','cellphone']);
         $this->loading = false;
+        $this->messageInfo('Cadastrado com sucesso');
         $this->dispatch('contatc-created');
     }
 

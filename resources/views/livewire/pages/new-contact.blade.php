@@ -75,7 +75,7 @@
                         name="name" autofocus x-ref="name" autocomplete="username" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
-                <div class="w-full md:w-1/2" x-on:contatc-created.window="$refs.name.focus();">
+                <div class="w-full md:w-1/2" x-on:contatc-created.window="createdContatc">
                     <x-input-label class="first-uppercase" for="number" :value="__('number')" />
                     <x-text-input id="number" wire:model='cellphone' class="block mt-1 w-full" type="text"
                         name="number" autofocus autocomplete="cellphone" x-mask="(99) 9 9999-9999" />
@@ -95,7 +95,7 @@
             Table
         </div>
 
-        <x-toast :message="$this->name"></x-toast>
+        <x-toast :message="$this->toast['message']" :type="$this->toast['type']" x-show="show_toast" x-on:close-toast="show_toast = false"></x-toast>
     </div>
 
 
@@ -105,9 +105,16 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('optionCreate', () => ({
                 option: 'users_anonymous',
-            }))
-
-        })
+                show_toast: false,
+                createdContatc() {
+                    this.$refs.name.focus();
+                    this.show_toast = true;
+                    setTimeout(() => {
+                        this.show_toast = false;
+                    }, 3000);
+                }
+            }));
+        });
         document.addEventListener('livewire:initialized', () => {
             @this.on('contatc-created', (event) => {
 
