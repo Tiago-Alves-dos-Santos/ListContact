@@ -94,6 +94,8 @@
         <div x-show="option == 'users_system'">
             Table
         </div>
+
+        <x-toast :message="$this->name"></x-toast>
     </div>
 
 
