@@ -50,4 +50,8 @@ class User extends Authenticatable
     {
         return $this->embedsMany(Contacts::class);
     }
+    public function contactsSystem()
+    {
+        return $this->hasMany(Contacts::class);
+    }
 }

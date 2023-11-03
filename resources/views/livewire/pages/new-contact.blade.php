@@ -75,7 +75,7 @@
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-1/2 md:mr-2">
                     <x-input-label for="name" :value="__('Name')" />
-                    <x-text-input wire:model='name' id="name" class="block mt-1 w-full" type="text"
+                    <x-text-input wire:model.live='name' id="name" class="block mt-1 w-full" type="text"
                         name="name" autofocus x-ref="name" autocomplete="username" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -96,10 +96,36 @@
 
         {{-- Table of users registred --}}
         <div x-show="option == 'users_system'">
-            Table
+            <x-table>
+                <x-slot name="thead">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Nome
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Número
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Edit</span>
+                        </th>
+                    </tr>
+                </x-slot>
+                <x-slot name="body">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Apple MacBook Pro 17"
+                        </th>
+                        <td class="px-6 py-4">
+                            Silver
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Adicionar</a>
+                        </td>
+                    </tr>
+                </x-slot>
+            </x-table>
         </div>
     </div>
-
 
 </div>
 @push('script')
@@ -114,7 +140,7 @@
                     setTimeout(() => {
                         this.show_toast = false;
                     }, 3000);
-                }
+                },
             }));
         });
     </script>

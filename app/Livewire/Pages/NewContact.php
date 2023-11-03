@@ -5,7 +5,6 @@ namespace App\Livewire\Pages;
 use Livewire\Component;
 use App\Models\Contacts;
 use App\Traits\Toast;
-use Livewire\Attributes\On;
 
 class NewContact extends Component
 {
@@ -13,7 +12,7 @@ class NewContact extends Component
     public bool $loading = false;
     public string $name = '';
     public string $cellphone = '';
-    #[On('saves')]
+
     public function save()
     {
         $this->validate([
