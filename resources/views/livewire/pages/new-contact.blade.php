@@ -111,19 +111,26 @@
                     </tr>
                 </x-slot>
                 <x-slot name="body">
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Adicionar</a>
-                        </td>
-                    </tr>
+                    @forelse ($users as $value)
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $value->name }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $value->cell_phone_number }}
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="#"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Adicionar</a>
+                            </td>
+                        </tr>
+                    @empty
+                    @endforelse
                 </x-slot>
             </x-table>
+            {{ $users->links() }}
         </div>
     </div>
 
@@ -134,6 +141,7 @@
             Alpine.data('optionCreate', () => ({
                 option: 'users_anonymous',
                 show_toast: false,
+                type: 'password',
                 createdContatc() {
                     this.$refs.name.focus();
                     this.show_toast = true;

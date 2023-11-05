@@ -4,11 +4,13 @@ namespace App\Livewire\Pages;
 
 use Livewire\Component;
 use App\Models\Contacts;
+use App\Models\User;
 use App\Traits\Toast;
+use Livewire\WithPagination;
 
 class NewContact extends Component
 {
-    use Toast;
+    use Toast, WithPagination;
     public bool $loading = false;
     public string $name = '';
     public string $cellphone = '';
@@ -16,13 +18,13 @@ class NewContact extends Component
     public function save()
     {
         $this->validate([
-            'name' => ['required','min:5'],
-            'cellphone' => ['required', 'min:16','max:17'],
-        ],[],[
+            'name' => ['required', 'min:5'],
+            'cellphone' => ['required', 'min:16', 'max:17'],
+        ], [], [
             'name' => __('Name'),
             'cellphone' => __('number')
         ]);
-        try{
+        try {
 
             $this->loading = true;
 
@@ -32,20 +34,26 @@ class NewContact extends Component
             $user = request()->user();
             $user->contacts()->save($contact);
 
-            $this->reset(['name','cellphone']);
+            $this->reset(['name', 'cellphone']);
             $this->loading = false;
             $this->messageInfo('Cadastrado com sucesso');
             $this->dispatch('contatc-created');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->messageInfo($e->getMessage());
             $this->loading = false;
             $this->dispatch('contatc-created');
         }
     }
 
+    // public function listContacts(type $ = null)
+    // {
+    //     # code...
+    // }
     public function render()
     {
-        return view('livewire.pages.new-contact')
+        return view('livewire.pages.new-contact', [
+            'users' => User::paginate(10),
+        ])
             ->layout('layouts.app');
     }
 }
