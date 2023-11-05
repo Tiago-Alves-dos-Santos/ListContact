@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Pages;
 
-use Livewire\Component;
-use App\Models\Contacts;
 use App\Models\User;
 use App\Traits\Toast;
+use Livewire\Component;
+use App\Models\Contacts;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class NewContact extends Component
@@ -44,16 +46,37 @@ class NewContact extends Component
             $this->dispatch('contatc-created');
         }
     }
+    #[On('system_contact')]
+    public function addContatcOfSystem($user)
+    {
 
-    // public function listContacts(type $ = null)
-    // {
-    //     # code...
-    // }
+        try {
+            Contacts::create([
+                'user_id' => Auth::id(),
+                'user_system' => $user['_id']
+            ]);
+            $this->messageInfo('Adcionado com sucesso');
+            $this->dispatch('contatc-created');
+        } catch (\Exception $e) {
+            $this->messageInfo($e->getMessage());
+            $this->dispatch('contatc-created');
+        }
+    }
+    public function listContacts()
+    {
+        $user = request()->user();
+        $query = User::query();
+        $query->where('_id','!=',Auth::id());
+        if(!$user->contactsSystem->isEmpty()){
+            $list_contatcs = $user->contactsSystem()->pluck('user_system');
+            $query->whereNotIn('_id', $list_contatcs);
+        }
+        return $query->paginate(10);
+    }
     public function render()
     {
         return view('livewire.pages.new-contact', [
-            'users' => User::paginate(10),
-        ])
-            ->layout('layouts.app');
+            'users' => $this->listContacts(),
+        ])->layout('layouts.app');
     }
 }
