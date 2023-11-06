@@ -6,10 +6,15 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class Contacts extends Component
 {
-    use WithPagination;
+    use WithPagination, Actions;
+    public function dialogs()
+    {
+
+    }
     private function listContacts():array
     {
         $user = request()->user();

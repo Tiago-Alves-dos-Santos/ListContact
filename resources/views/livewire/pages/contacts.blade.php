@@ -1,4 +1,8 @@
-<div>
+<div x-data="{name:'', cellphone:''}">
+    <x-dialog id="custom" title="User information" description="Complete your profile, give your name">
+        <x-input label="Nome" placeholder="your name bro" x-model="name" />
+        <x-input label="Celular" placeholder="your name bro" x-model="cellphone" />
+    </x-dialog>
     {{-- Be like water. --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
@@ -14,7 +18,7 @@
         </a>
     </div>
     <div>
-        <h2>Contatos</h2>
+        <h2 wire:click='dialogs'>Contatos</h2>
     </div>
     <x-table>
         <x-slot name="thead">
@@ -32,19 +36,38 @@
         </x-slot>
         <x-slot name="body">
             @forelse ($contacts as $value)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $value->name }}
-                </th>
-                <td class="px-6 py-4">
-                    {{ $value->cellphone }}
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
+                <tr
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $value->name }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ $value->cellphone }}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" x-on:confirm="{
+                            id: 'custom',
+                            icon: 'question',
+                            accept: {
+                                label: 'Yes, save it',
+                                execute: () => window.$wireui.notify({
+                                    'title': 'Profile name saved',
+                                    'description': `Good by, ${name}`,
+                                    'icon': 'success'
+                                })
+                            },
+                            reject: {
+                                label: 'No, cancel',
+                                execute: () => window.$wireui.notify({
+                                    'title': 'You not confirmed',
+                                    'description': `Good by, ${name}`,
+                                    'icon': 'error'
+                                })
+                            }
+                        }">Edit</button>
+                    </td>
+                </tr>
             @empty
-
             @endforelse
         </x-slot>
     </x-table>
@@ -54,7 +77,7 @@
 
 
     <div>
-        <h2>Contatos do sistema</h2>
+        <h1>Contatos do sistema</h1>
     </div>
     <x-table>
         <x-slot name="thead">
@@ -72,19 +95,19 @@
         </x-slot>
         <x-slot name="body">
             @forelse ($user_system as $value)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $value->user->name }}
-                </th>
-                <td class="px-6 py-4">
-                    {{ $value->user->cell_phone_number }}
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
+                <tr
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $value->user->name }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ $value->user->cell_phone_number }}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    </td>
+                </tr>
             @empty
-
             @endforelse
         </x-slot>
     </x-table>
@@ -93,4 +116,7 @@
     </div>
 
 </div>
-<script></script>
+@push('script')
+    <script type="module">
+    </script>
+@endpush
