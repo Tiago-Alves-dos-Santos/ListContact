@@ -67,15 +67,19 @@
             </div>
         </div>
         {{-- End Button dropdown --}}
+        <div class="w-full flex justify-end mt-2">
+            <x-toast :message="$this->toast['message']" :type="$this->toast['type']" x-show="show_toast"
+                x-on:close-toast="show_toast = false"></x-toast>
+        </div>
         <form class="" wire:submit="save" x-show="option == 'users_anonymous' ">
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-1/2 md:mr-2">
                     <x-input-label for="name" :value="__('Name')" />
-                    <x-text-input wire:model='name' id="name" class="block mt-1 w-full" type="text"
+                    <x-text-input wire:model.live='name' id="name" class="block mt-1 w-full" type="text"
                         name="name" autofocus x-ref="name" autocomplete="username" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
-                <div class="w-full md:w-1/2" x-on:contatc-created.window="$refs.name.focus();">
+                <div class="w-full md:w-1/2" x-on:contatc-created.window="createdContatc">
                     <x-input-label class="first-uppercase" for="number" :value="__('number')" />
                     <x-text-input id="number" wire:model='cellphone' class="block mt-1 w-full" type="text"
                         name="number" autofocus autocomplete="cellphone" x-mask="(99) 9 9999-9999" />
@@ -92,10 +96,43 @@
 
         {{-- Table of users registred --}}
         <div x-show="option == 'users_system'">
-            Table
+            <x-table>
+                <x-slot name="thead">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Nome
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Número
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Edit</span>
+                        </th>
+                    </tr>
+                </x-slot>
+                <x-slot name="body">
+                    @forelse ($users as $value)
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $value->name }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $value->cell_phone_number }}
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="#"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline" x-on:click="$dispatch('system_contact',{user: {{ $value }}})">Adicionar</a>
+                            </td>
+                        </tr>
+                    @empty
+                    @endforelse
+                </x-slot>
+            </x-table>
+            {{ $users->links() }}
         </div>
     </div>
-
 
 </div>
 @push('script')
@@ -103,14 +140,16 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('optionCreate', () => ({
                 option: 'users_anonymous',
-            }))
-
-        })
-        document.addEventListener('livewire:initialized', () => {
-            @this.on('contatc-created', (event) => {
-
-            });
-
+                show_toast: false,
+                type: 'password',
+                createdContatc() {
+                    this.$refs.name.focus();
+                    this.show_toast = true;
+                    setTimeout(() => {
+                        this.show_toast = false;
+                    }, 3000);
+                },
+            }));
         });
     </script>
 @endpush
