@@ -40,7 +40,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         $this->redirect(
             session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
+            navigate: false
         );
     }
 
@@ -83,11 +83,7 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <x-inputs.password wire:model="password" name="password" autocomplete="current-password"/>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>

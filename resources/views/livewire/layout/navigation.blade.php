@@ -29,20 +29,20 @@ new class extends Component
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')" wire:navigate class="capitalize">
+                        {{ __('contacts') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')" wire:navigate class="capitalize">
-                        {{ __('contacts') }}
+                    <x-nav-link :href="route('contacts.new')" :active="request()->routeIs('contacts.new')">
+                        <span class="first-uppercase">{{ __('new contact') }}</span>
                     </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown-breeze align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
@@ -56,18 +56,18 @@ new class extends Component
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
+                        <x-dropdown.item :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
-                        </x-dropdown-link>
+                        </x-dropdown.item>
 
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-left">
-                            <x-dropdown-link>
+                            <x-dropdown.item >
                                 {{ __('Log Out') }}
-                            </x-dropdown-link>
+                            </x-dropdown.item>
                         </button>
                     </x-slot>
-                </x-dropdown>
+                </x-dropdown-breeze>
             </div>
 
             <!-- Hamburger -->
@@ -84,17 +84,16 @@ new class extends Component
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
         <div class="pt-2 pb-3 space-y-1 capitalize">
             <x-responsive-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')" wire:navigate>
                 {{ __('contacts') }}
             </x-responsive-nav-link>
         </div>
-
+        <div class="pt-2 pb-3 space-y-1 first-uppercase">
+            <x-responsive-nav-link   :href="route('contacts.new')" :active="request()->routeIs('contacts.new')">
+                {{ __('new contact') }}
+            </x-responsive-nav-link>
+        </div>
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
