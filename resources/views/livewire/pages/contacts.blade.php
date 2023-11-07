@@ -20,10 +20,10 @@
         <x-slot name="thead">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Product name
+                    Nome
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Numero
+                    Número
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
@@ -56,17 +56,17 @@
     </div>
 
 
-    <div>
+    <div class="mt-5">
         <h1>Contatos do sistema</h1>
     </div>
     <x-table>
         <x-slot name="thead">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Product name
+                    Nome
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Numero
+                    Número
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
