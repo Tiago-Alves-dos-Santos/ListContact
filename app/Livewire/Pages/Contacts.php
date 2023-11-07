@@ -50,8 +50,8 @@ class Contacts extends Component
     {
         $user = request()->user();
         return [
-            'contacts' => $user->contacts()->paginate(10)->withQueryString(),
-            'user_system' => $user->contactsSystem()->paginate(10, ['*'], 'user_system')->withQueryString()
+            'contacts' => $user->contacts()->paginate(6)->withQueryString(),
+            'user_system' => $user->contactsSystem()->paginate(6, ['*'], 'user_system')->withQueryString()
         ];
     }
     public function render()
