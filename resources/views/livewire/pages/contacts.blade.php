@@ -84,7 +84,8 @@
                         {{ $value->user->cell_phone_number }}
                     </td>
                     <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        x-on:click="$dispatch('show-custom-dialog', {dialogId:'contact-unlink', componentID: '{{ $this->getId() }}', value: '{{ $value->user }}' })">Desvincular </button>
                     </td>
                 </tr>
             @empty

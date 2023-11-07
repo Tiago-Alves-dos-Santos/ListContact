@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use App\Models\User;
 
 use Livewire\Component;
+use App\Models\Contacts as ContactsModel;
 use WireUi\Traits\Actions;
 use Livewire\WithPagination;
 use Illuminate\Http\Client\Request;
@@ -38,6 +39,12 @@ class Contacts extends Component
     {
         Auth::user()->contacts()->find($contact['id'])->delete();
         $this->dialog()->info('Sucesso!', "Contato: {$contact['name']} deletado!");
+    }
+    public function unlinkContactSystem($contact)
+    {
+        ContactsModel::where('user_id', Auth::id())
+        ->where('user_system',$contact['id'])->delete();
+        $this->dialog()->info('Sucesso!', "Contato: {$contact['name']} desvinculado!");
     }
     private function listContacts():array
     {

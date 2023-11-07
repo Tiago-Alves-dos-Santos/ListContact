@@ -54,6 +54,24 @@
                                 }
                             }, object.detail.componentID)
                             break;
+                        case 'contact-unlink':
+                            object.detail.value = JSON.parse(object.detail.value);
+                            this.contact.id = object.detail.value._id,
+                            this.contact.name = object.detail.value.name,
+                            window.$wireui.confirmDialog({
+                                title: 'Desvincular contato',
+                                description: 'Desejar prosseguir com a desvinculação com contato: '+this.contact.name+'?',
+                                icon: 'warning',
+                                accept: {
+                                    label: 'Desvincular',
+                                    method: 'unlinkContactSystem',
+                                    params: this.contact
+                                },
+                                reject: {
+                                    label: 'Cancelar',
+                                }
+                            }, object.detail.componentID)
+                            break;
                         default:
                     }
                 }
