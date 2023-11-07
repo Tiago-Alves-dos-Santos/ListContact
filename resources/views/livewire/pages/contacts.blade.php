@@ -44,7 +44,7 @@
                         <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                             x-on:click="$dispatch('show-custom-dialog', {dialogId:'contact-update', componentID: '{{ $this->getId() }}', value: '{{ $value }}' })">Editar</button>
                         <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                           >Deletar</button>
+                        x-on:click="$dispatch('show-custom-dialog', {dialogId:'contact-delete', componentID: '{{ $this->getId() }}', value: '{{ $value }}' })">Deletar</button>
                     </td>
                 </tr>
             @empty

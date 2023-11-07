@@ -33,8 +33,11 @@ class Contacts extends Component
             $new_contact->save();
             $this->dialog()->success('Sucesso!', "Contato: {$new_contact->name} atualizado!");
         }
-
-
+    }
+    public function deleteContact($contact)
+    {
+        Auth::user()->contacts()->find($contact['id'])->delete();
+        $this->dialog()->info('Sucesso!', "Contato: {$contact['name']} deletado!");
     }
     private function listContacts():array
     {

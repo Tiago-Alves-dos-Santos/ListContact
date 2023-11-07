@@ -35,6 +35,25 @@
                                 }
                             }, object.detail.componentID)
                             break;
+                        case 'contact-delete':
+                            object.detail.value = JSON.parse(object.detail.value);
+                            this.contact.id = object.detail.value._id,
+                            this.contact.name = object.detail.value.name,
+                            this.contact.cellphone = object.detail.value.cellphone,
+                            window.$wireui.confirmDialog({
+                                title: 'Deletar contato',
+                                description: 'Desejar prosseguir com a deleção do contato: '+this.contact.name+'?',
+                                icon: 'error',
+                                accept: {
+                                    label: 'Deletar',
+                                    method: 'deleteContact',
+                                    params: this.contact
+                                },
+                                reject: {
+                                    label: 'Cancelar',
+                                }
+                            }, object.detail.componentID)
+                            break;
                         default:
                     }
                 }
