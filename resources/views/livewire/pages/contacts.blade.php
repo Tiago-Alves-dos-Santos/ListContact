@@ -42,7 +42,9 @@
                     </td>
                     <td class="px-6 py-4 text-right">
                         <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            x-on:click="$dispatch('show-custom-dialog', {dialogId:'contact-update', value: '{{ $value }}' })">Edit</button>
+                            x-on:click="$dispatch('show-custom-dialog', {dialogId:'contact-update', componentID: '{{ $this->getId() }}', value: '{{ $value }}' })">Editar</button>
+                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                           >Deletar</button>
                     </td>
                 </tr>
             @empty

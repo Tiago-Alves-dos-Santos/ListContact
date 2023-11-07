@@ -40,7 +40,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         $this->redirect(
             session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
+            navigate: false
         );
     }
 

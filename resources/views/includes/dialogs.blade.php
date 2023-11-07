@@ -18,7 +18,7 @@
                     switch (object.detail.dialogId) {
                         case 'contact-update':
                             object.detail.value = JSON.parse(object.detail.value);
-                            this.contact.id = object.detail.value.id,
+                            this.contact.id = object.detail.value._id,
                             this.contact.name = object.detail.value.name,
                             this.contact.cellphone = object.detail.value.cellphone,
                             window.$wireui.confirmDialog({
@@ -27,14 +27,13 @@
                                 icon: 'question',
                                 accept: {
                                     label: 'Salvar',
-                                    method: 'save',
-                                    params: 'Saved'
+                                    method: 'updateContatc',
+                                    params: this.contact
                                 },
                                 reject: {
                                     label: 'Cancelar',
-                                    method: 'cancel'
                                 }
-                            })
+                            }, object.detail.componentID)
                             break;
                         default:
                     }
