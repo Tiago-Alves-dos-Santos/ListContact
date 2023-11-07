@@ -1,8 +1,4 @@
-<div x-data="{name:'', cellphone:''}">
-    <x-dialog id="custom" title="User information" description="Complete your profile, give your name">
-        <x-input label="Nome" placeholder="your name bro" x-model="name" />
-        <x-input label="Celular" placeholder="your name bro" x-model="cellphone" />
-    </x-dialog>
+<div>
     {{-- Be like water. --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
@@ -45,26 +41,8 @@
                         {{ $value->cellphone }}
                     </td>
                     <td class="px-6 py-4 text-right">
-                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" x-on:confirm="{
-                            id: 'custom',
-                            icon: 'question',
-                            accept: {
-                                label: 'Yes, save it',
-                                execute: () => window.$wireui.notify({
-                                    'title': 'Profile name saved',
-                                    'description': `Good by, ${name}`,
-                                    'icon': 'success'
-                                })
-                            },
-                            reject: {
-                                label: 'No, cancel',
-                                execute: () => window.$wireui.notify({
-                                    'title': 'You not confirmed',
-                                    'description': `Good by, ${name}`,
-                                    'icon': 'error'
-                                })
-                            }
-                        }">Edit</button>
+                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            x-on:click="$dispatch('show-custom-dialog', {dialogId:'contact-update', value: '{{ $value }}' })">Edit</button>
                     </td>
                 </tr>
             @empty
@@ -117,6 +95,5 @@
 
 </div>
 @push('script')
-    <script type="module">
-    </script>
+    <script type="module"></script>
 @endpush

@@ -19,7 +19,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <x-dialog z-index="z-50" blur="md" align="center" />
+    @include('includes.dialogs')
     <div class="min-h-screen bg-gray-100">
         <livewire:layout.navigation />
 
