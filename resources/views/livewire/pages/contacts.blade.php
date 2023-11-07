@@ -48,6 +48,9 @@
                     </td>
                 </tr>
             @empty
+            <tr>
+                <td colspan="3" class="text-center font-bold"> N/A </td>
+            </tr>
             @endforelse
         </x-slot>
     </x-table>
@@ -89,6 +92,9 @@
                     </td>
                 </tr>
             @empty
+            <tr>
+                <td colspan="3" class="text-center font-bold"> N/A </td>
+            </tr>
             @endforelse
         </x-slot>
     </x-table>
