@@ -111,7 +111,7 @@ Sistema de controle de contatos, o principal objetivo do projeto foi testar a no
 
 <!-- USAGE EXAMPLES -->
 ## Modo de uso
-Video no youtube, mostrando um pouco do uso em si. <a href="[http://](https://www.youtube.com/watch?v=zZdT9-bcIKI)" target="_blank">clique aqui!</a>
+Video no youtube, mostrando um pouco do uso em si. <a href="https://www.youtube.com/watch?v=zZdT9-bcIKI">clique aqui!</a>
 
 <p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
